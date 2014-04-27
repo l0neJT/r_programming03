@@ -1,4 +1,7 @@
-r_programming03
-===============
+r_programming
+=============
 
-John's Hopkins University R Programming on Coursera - Assignment 03
+Assignment 03
+------------
+
+John's Hopkins University R Programming on Coursera
