@@ -40,6 +40,6 @@ rankhospital <- function(state, outcome, num = "best", directory = "./hospital_c
         numMax
     } else return(NA)
     
-    # Order by 'outcome' then 'Hospital.Name' and return row 'num'
+    # Order by 'outcome' then 'name' and return row 'num'
     outcomeData[order(as.numeric(outcomeData[[1]]), outcomeData[[2]]), 2][num]
 }
