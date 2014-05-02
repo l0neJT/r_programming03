@@ -1,5 +1,5 @@
-## Find the hospital in a state with the lowest (i.e.)  best outcome
-best <- function(state, outcome, directory = "./hospital_compare_data") {
+## 
+rankhospital <- function(state, outcome, num = "best", directory = "./hospital_compare_data") {
     # Create list of outcome-column number pairs in
     # 'outcome-of-care_measures.csv'
     outcomeList <- list(c("heart attack", "heart failure", "pneumonia"),
@@ -19,13 +19,27 @@ best <- function(state, outcome, directory = "./hospital_compare_data") {
     outcomeData <- subset(outcomeData, toupper(state) == State)
     if(nrow(outcomeData) == 0) stop("invalid state")
     
-    # Determine minimum (i.e. best) measure
-    minMeasure <- min(as.numeric(outcomeData[, column]), na.rm = TRUE)
+    # Limit and re-order 'outcomeData' to 'outcome', 'name'
+    outcomeData <- outcomeData[, c(column, 2)]
+    names(outcomeData) <- c("outcome", "name")
     
-    # Subset 'outcomeData' to rows with outcome 'minMeasure'
-    outcomeData <- subset(outcomeData, as.numeric(outcomeData[, column])
-                          == minMeasure)
+    # Remove NA 'outcome' rows
+    outcomeData <- subset(outcomeData, !is.na(as.numeric(outcome)))
     
-    # Return first entry in sorted "Hospital.Name' vector
-    sort(outcomeData$Hospital.Name)[1]
+    # Determine number of measurements and save to 'numMax'
+    numMax <- nrow(outcomeData)
+    
+    # Test 'num' for non-numeric and out-of-range values
+    num <- if(is.numeric(num)) {
+        if(num < 1 | num > numMax) {
+            return(NA)
+        } else num
+    } else if(tolower(num) == "best") {
+        1
+    } else if(tolower(num) == "worst") {
+        numMax
+    } else return(NA)
+    
+    # Order by 'outcome' then 'Hospital.Name' and return row 'num'
+    outcomeData[order(as.numeric(outcomeData[[1]]), outcomeData[[2]]), 2][num]
 }
