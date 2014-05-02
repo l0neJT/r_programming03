@@ -1,4 +1,4 @@
-## 
+## Find the hospital in a state with the given rank for an outcome
 rankhospital <- function(state, outcome, num = "best", directory = "./hospital_compare_data") {
     # Create list of outcome-column number pairs in
     # 'outcome-of-care_measures.csv'

@@ -1,4 +1,4 @@
-## Find the hospital in a state with the lowest (i.e.)  best outcome
+## Find the hospital in a state with the lowest (i.e. best) outcome
 best <- function(state, outcome, directory = "./hospital_compare_data") {
     # Create list of outcome-column number pairs in
     # 'outcome-of-care_measures.csv'
