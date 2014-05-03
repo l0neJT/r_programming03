@@ -53,6 +53,11 @@ rankall <- function(outcome, num = "best", directory = "./hospital_compare_data"
         rankedHospitals[i] <- if(is.na(n)) NA else tempData[n, 2]
     }
     
-    # Return data frame combining hospital names with states
-    data.frame(rankedHospitals, states)
+    # Create data frame 'results' combining hospital names with states
+    # Named columns to comply with assignment
+    results <- data.frame(rankedHospitals, states)
+    names(results) <- c("hospital", "state")
+    
+    # Return 'results'
+    results
 }
